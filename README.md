@@ -1,10 +1,9 @@
-# User Management RESTful Web Services (Web API)
-A repository to store Java code and datastore information for building user management RESTful Web Services.
+# RESTful Web Services for User Management 
+This is a repository to store Java source code for building user management RESTful Web Services.
 
----
-## REST API endpoints that manages users and associated permissions.
+### REST API endpoints that manages users and associated permissions.
 
-### Requirements:
+#### Requirements:
  
 1. A user should have at least the following attributes:
 	- family name
