@@ -26,8 +26,15 @@
 
 ## Environment
 
-- Java 11
-- Maven ver 3.8.1
+- Run the API App as JVM
+	- Java 11
+	- Maven ver 3.8.1
+
+- Run the API App as container process by Docker
+	- Docker runtime
+
+			docker build -t usermanagement:v1 .
+			docker run -d -p 8000:8000 usermanagement:v1
 
 ## Get Started
 
