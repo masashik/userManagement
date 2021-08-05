@@ -1,4 +1,4 @@
-package com.masashik.app;
+package com.masashik.app.models;
 
 import java.util.Date;
 

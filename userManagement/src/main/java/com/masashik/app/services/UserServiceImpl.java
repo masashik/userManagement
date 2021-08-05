@@ -1,13 +1,13 @@
-package com.masashik.app;
+package com.masashik.app.services;
 
-import java.util.List;
-import java.util.Collection;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 
-import com.masashik.app.User;
+import com.masashik.app.models.Permission;
+import com.masashik.app.models.User;
 
 public class UserServiceImpl implements UserService {
 

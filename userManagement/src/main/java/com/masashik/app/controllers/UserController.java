@@ -1,18 +1,18 @@
-package com.masashik.app;
+package com.masashik.app.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.masashik.app.UserServiceImpl;
-
-import java.text.ParseException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Collection;
-import java.util.Date;
-import java.text.SimpleDateFormat;
+import com.masashik.app.models.User;
+import com.masashik.app.services.UserService;
+import com.masashik.app.services.UserServiceImpl;
+import com.masashik.app.models.Permission;
 
 import spark.Request;
 import spark.Response;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Date;
 
 public class UserController {
 

@@ -1,4 +1,4 @@
-package com.masashik.app;
+package com.masashik.app.transformers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

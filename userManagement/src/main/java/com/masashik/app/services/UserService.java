@@ -1,8 +1,10 @@
-package com.masashik.app;
+package com.masashik.app.services;
 
-import java.util.HashMap;
-import java.util.List;
+import com.masashik.app.models.User;
+import com.masashik.app.models.Permission;
+
 import java.util.Collection;
+import java.util.HashMap;
 
 public interface UserService {
 

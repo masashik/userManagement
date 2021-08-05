@@ -5,18 +5,23 @@ import static spark.Spark.get;
 import static spark.Spark.delete;
 import static spark.Spark.post;
 
+import com.masashik.app.controllers.UserController;
+import com.masashik.app.transformers.JsonResponseTransformer;
+
 public class MainApp {
 
 	public static void main(String[] args) {
 
 		/**
+		 * 	This API App has the following functionalities.
+		 *
 		 * 	- list all users
 		 * 	- add user
 		 * 	- remove user
 		 * 	- get single user
 		 * 	- grant permission for a user
 		 * 	- revoke permission for a user
-		 * 	- search users by family name <– this will be a stretch goal
+		 * 	- search users by family name
 		 */
 
 		port(8000);

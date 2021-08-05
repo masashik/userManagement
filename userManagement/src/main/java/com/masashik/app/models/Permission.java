@@ -1,6 +1,4 @@
-package com.masashik.app;
-
-import java.util.HashMap;
+package com.masashik.app.models;
 
 public class Permission {
 
