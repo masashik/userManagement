@@ -20,6 +20,8 @@ public class UserController {
 
   public Collection<User> getUsers(Request request, Response response) {
 
+    response.type("application/json");
+
     return userService.getUsers();
 
   }

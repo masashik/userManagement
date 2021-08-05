@@ -8,7 +8,7 @@ import static spark.Spark.post;
 import com.masashik.app.controllers.UserController;
 import com.masashik.app.transformers.JsonResponseTransformer;
 
-public class MainApp {
+public class UserManagementMainApp {
 
 	public static void main(String[] args) {
 
