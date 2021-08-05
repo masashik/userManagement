@@ -26,6 +26,14 @@
 
 ## Get Started
 
+ - Usage to launch the API server(Jetty)
+
+		$ gh repo clone masashik/userManagement
+		$ cd userManagement/userManagement
+		$ mvn clean compile test exec:java
+
+		The API server is running at port 8000.
+
  - Available API endpoints
 
     	HTTP GET    /users - List all users
