@@ -33,20 +33,34 @@
 - Run the API App as container process by Docker
 	- Docker runtime
 
-			docker build -t usermanagement:v1 .
-			docker run -d -p 8000:8000 usermanagement:v1
 
 ## Get Started
 
- - Usage to launch the API server(Jetty)
+- Clone the project into your remote or localhost
 
 		$ gh repo clone masashik/userManagement
 		$ cd userManagement/userManagement
+
+ - Option 1. Launch the API server (Jetty) from source code
+
 		$ mvn clean compile test exec:java
 
-		The API server is running at port 8000.
+ - Option 2. Launch the API server (Jetty) from JAR file
 
- - Available API endpoints
+		$ java -jar userManagement-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+ - Option 3. Launch the API server (Jetty) from Docker
+
+		$ docker build -t usermanagement:v1 .
+		$ docker run -d -p 8000:8000 usermanagement:v1
+
+#### The API server is now running at port 8000.
+
+	Try hitting the endpoints and some users.
+	curl -H "Content-Type: application/json" http://localhost:8000/users
+
+
+### Available API endpoints
 
     	HTTP GET    /users - List all users
     	HTTP POST   /users - Add new user
