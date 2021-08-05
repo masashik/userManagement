@@ -24,6 +24,11 @@
 
 *Please keep in mind that the purpose is not solely to provide a working solution. We are looking for you to demonstrate the principles and practices you  feel are important in software engineering: dependency management, testing, project structure, data modelling, etc.
 
+## Environment
+
+- Java 11
+- Maven ver 3.8.1
+
 ## Get Started
 
  - Usage to launch the API server(Jetty)
@@ -98,8 +103,9 @@
 
 ### TODO
 
-- [ ] create develop and feature branch for gitflow
+- [ ] Create develop and feature branch for gitflow
 - [ ] Develop test case for unit, integration, and end-to-end (regression)
+- [ ] Containerize the API App.
 - [ ] Enable logging for service health observability
 - [ ] JWT based API endpoints protection
 - [ ] Rate limiting for service availability
