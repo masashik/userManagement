@@ -12,8 +12,6 @@ public class UserManagementMainApp {
 
 	public static void main(String[] args) {
 
-		Adding some weird text here to test CI server catch it and fail to build.
-
 		/**
 		 * 	This API App has the following functionalities.
 		 *
