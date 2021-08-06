@@ -28,6 +28,8 @@ public class UserController {
 
   public Object addUser(Request request, Response response) {
 
+    response.type("application/json");
+
     User user = null;
     try {
       user = new Gson().fromJson(request.body(), User.class);
@@ -46,6 +48,8 @@ public class UserController {
   }
 
   public User removeUser(Request request, Response response) {
+
+    response.type("application/json");
 
     User user = null;
     try {
@@ -67,11 +71,15 @@ public class UserController {
   }
 
   public Object getUser(Request request, Response response) {
-
     User user = userService.getUser(request.params(":id"));
-
-    return user;
-
+    if (user == null) {
+      response.status( 404 );// 404 Not Found.
+      return null;
+    } else {
+      response.type("application/json");
+      response.status( 200 );
+      return user;
+    }
   }
 
   public Object grantPermission(Request request, Response response) {
@@ -86,6 +94,7 @@ public class UserController {
 
       if (level == null) {
         response.status( 404 );
+        response.type("application/json");
         return user;
       }
 
@@ -94,12 +103,22 @@ public class UserController {
 
       if (!userService.permissionExists(user, newPermission)) {
         userService.getUserPermission().put(user.getId(), newPermission);
+        response.type("application/json");
+        response.status( 200 );
+      } else {
+        //Permission is already assigned to the user.
+        response.type("application/json");
+        response.status( 200 );
+        user.setPermission(newPermission);
+        return user;
       }
-
+    } else {
+      response.type("application/json");
+      response.status( 404 );// Not Found
+      return null;
     }
 
     user.setPermission(newPermission);
-
     return user;
   }
 
@@ -147,7 +166,7 @@ public class UserController {
     User testUser = new User();
     testUser.setFirstName("Masashi");
     testUser.setLastName("Kobayashi");
-    testUser.setBirthDate(new Date());
+    testUser.setBirthDate("1998-11-05");
     testUser.setEmail("masashi@masashi.ca");
     testUser.setPassword("password");
     testUser.setId("1");
@@ -165,7 +184,21 @@ public class UserController {
   }
 
   public HashMap<String, Permission> getPermissions(Request request, Response response) {
+    response.type("application/json");
     return userService.getUserPermission();
   }
 
+  public Object removeAllUsers(Request request, Response response) {
+    response.type("application/json");
+    response.status( 200 );
+    userService.getUserStore().clear();
+    return "";
+  }
+
+  public Object revokeAllPermissions(Request request, Response response) {
+    response.type("application/json");
+    response.status( 200 );
+    userService.getUserPermission().clear();
+    return "";
+  }
 }

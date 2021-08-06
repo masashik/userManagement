@@ -16,6 +16,7 @@ public interface UserService {
 	public void grantPermission(User user, Permission permission);
 	public void revokePermission(User user, Permission permission);
 	public HashMap<String, Permission> getUserPermission();
+	public HashMap<String, User> getUserStore();
 	public boolean permissionExists(User user, Permission permission);
 	public boolean userExists(User user);
 }

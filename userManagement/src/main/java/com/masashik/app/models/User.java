@@ -7,7 +7,7 @@ public class User {
   private String id;
   private String firstName;
   private String lastName;
-  private Date birthDate;
+  private String birthDate;
   private String email;
   private String password;
   private Permission permission;
@@ -36,11 +36,11 @@ public class User {
     this.lastName = lastName;
   }
 
-  public Date getBirthDate() {
+  public String getBirthDate() {
     return birthDate;
   }
 
-  public void setBirthDate(Date birthDate) {
+  public void setBirthDate(String birthDate) {
     this.birthDate = birthDate;
   }
 

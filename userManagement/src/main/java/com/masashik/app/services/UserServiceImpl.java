@@ -52,6 +52,10 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	public HashMap<String, User> getUserStore() {
+		return userStore;
+	}
+
 	public HashMap<String, Permission> getUserPermission() {
 		return userPermission;
 	}

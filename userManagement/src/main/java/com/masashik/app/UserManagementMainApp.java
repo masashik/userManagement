@@ -30,11 +30,6 @@ public class UserManagementMainApp {
 
 		var transformer = new JsonResponseTransformer();
 
-		// test endpoint to get a statically prepared user data.
-		get("/testUser", userController::getTestUser, transformer);
-
-		// test endpoint to get a statically prepared permission data.
-		get("/testPermission", userController::getTestPermission, transformer);
 
 		// list all users
 		get("/users", userController::getUsers, transformer);
@@ -59,5 +54,17 @@ public class UserManagementMainApp {
 
 		// Get all stored permissions
 		get("/permissions", userController::getPermissions, transformer);
+
+		// Remove all users
+		delete("/users/reset", userController::removeAllUsers);
+
+		// Rovoke all permissions
+		delete("/permissions/reset", userController::revokeAllPermissions);
+
+		// test endpoint to get a statically prepared user data.
+		get("/testUser", userController::getTestUser, transformer);
+
+		// test endpoint to get a statically prepared permission data.
+		get("/testPermission", userController::getTestPermission, transformer);
 	}
 }
