@@ -70,64 +70,184 @@
     	HTTP POST   /user/:id/revoke/:permission - Revoke permission from a user
     	HTTP GET    /users/:familyName - List all users containing the family name
 
- - Dependency management 
+### Dependency management 
 
  		Apache Maven is used for managing dependent resources.
+		<?xml version="1.0" encoding="UTF-8"?>
+		
+		<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		<modelVersion>4.0.0</modelVersion>
+		
+		<groupId>com.masashik.app</groupId>
+		<artifactId>userManagement</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		
+		<name>userManagement</name>
+		<url>https://github.com/masashik/userManagement</url>
+		
+		<properties>
+			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		</properties>
+		
+		<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.11</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.sparkjava</groupId>
+				<artifactId>spark-core</artifactId>
+				<version>2.9.3</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.8.0</version>
+			</dependency>
+			<dependency>
+				<groupId>io.rest-assured</groupId>
+				<artifactId>rest-assured</artifactId>
+				<version>3.0.7</version>
+			</dependency>
+			<dependency>
+				<groupId>io.rest-assured</groupId>
+				<artifactId>json-path</artifactId>
+				<version>3.0.7</version>
+			</dependency>
+			<dependency>
+				<groupId>io.rest-assured</groupId>
+				<artifactId>json-schema-validator</artifactId>
+				<version>3.0.7</version>
+			</dependency>
+			<dependency>
+				<groupId>io.rest-assured</groupId>
+				<artifactId>xml-path</artifactId>
+				<version>3.0.7</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hamcrest</groupId>
+				<artifactId>hamcrest-all</artifactId>
+				<version>1.3</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+		
+		<build>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>3.0.0</version>
+					<configuration>
+						<mainClass>com.masashik.app.UserManagementMainApp</mainClass>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
+					<configuration>
+						<release>11</release>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>3.1.0</version>
+					<configuration>
+						<descriptorRefs>
+							<descriptorRef>jar-with-dependencies</descriptorRef>
+						</descriptorRefs>
+						<archive>
+							<manifest>
+								<addClasspath>true</addClasspath>
+								<mainClass>com.masashik.app.UserManagementMainApp</mainClass>
+							</manifest>
+						</archive>
+					</configuration>
+					<executions>
+						<execution>
+							<id>assemble-all</id>
+							<phase>package</phase>
+							<goals>
+								<goal>single</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</build>
+		</project>
 
-- Testing
+### Testing
 
-	- Unit Test
-	- Integration Test
-	- End-to-end Test
+	Test scripts covered the following topics to assure the API requirements.
 
- - Data modelling
+	UserManagementAppTest.getAllUserAndReturnHTTP200
+	UserManagementAppTest.getSingleUserAndReturnHTTP200
+	UserManagementAppTest.addNewUserAndReturnHTTP201
+	UserManagementAppTest.getSingleNonExistentUserAndReturnHTTP404
+	UserManagementAppTest.removeNonExistingUserAndReturnHTTP404
+	UserManagementAppTest.addMultipleNewUsersTest
+	UserManagementAppTest.addNewUserVerifyUserBody
+	UserManagementAppTest.findUserByFamilyNameAndReturnHTTP200
+	UserManagementAppTest.removeExistingUserWithBadRequestBodyAndReturnHTTP404
+	UserManagementAppTest.revokePermissionUserAndReturnHTTP200
+	UserManagementAppTest.removeExistingUserAndReturnHTTP200
+	UserManagementAppTest.grantPermissionUserAndReturnHTTP200
 
- 	- User
- 	- Permission
 
- - Project structure
+### Data modelling
 
-    	 ~/userManagement/ <-- Store project related files
-    	├── LICENSE
-    	├── README.md
-    	└── userManagement <-- Store project specific files
-    	    ├── pom.xml
-    	    └── src
-    	        ├── main
-    	        │   └── java
-    	        │       └── com
-    	        │           └── masashik
-    	        │               └── app
-    	        │                   ├── MainApp.java
-    	        │                   ├── Response.java
-    	        │                   ├── StatusResponse.java
-    	        │                   ├── controllers
-    	        │                   │   └── UserController.java
-    	        │                   ├── exceptions
-    	        │                   ├── filters
-    	        │                   │   └── JsonParsingFilter.java
-    	        │                   ├── models
-    	        │                   │   ├── Permission.java
-    	        │                   │   └── User.java
-    	        │                   ├── services
-    	        │                   │   ├── UserService.java
-    	        │                   │   └── UserServiceImpl.java
-    	        │                   └── transformers
-    	        │                       └── JsonResponseTransformer.java
-    	        └── test
-    	            └── java
-    	                └── com
-    	                    └── masashik
-    	                        └── app
-    	                            └── AppTest.java
+ 	User
+ 	Permission
 
+### Project structure
+
+	 ~/Project/userManagement/ [main*] tree
+	├── LICENSE
+	├── README.md
+	└── userManagement
+	├── Dockerfile
+	├── pom.xml
+	├── src
+	    ├── main
+	    │   └── java
+	    │       └── com
+	    │           └── masashik
+	    │               └── app
+	    │                   ├── Response.java
+	    │                   ├── StatusResponse.java
+	    │                   ├── UserManagementMainApp.java
+	    │                   ├── controllers
+	    │                   │   └── UserController.java
+	    │                   ├── exceptions
+	    │                   ├── filters
+	    │                   │   └── JsonParsingFilter.java
+	    │                   ├── models
+	    │                   │   ├── Permission.java
+	    │                   │   └── User.java
+	    │                   ├── services
+	    │                   │   ├── UserService.java
+	    │                   │   └── UserServiceImpl.java
+	    │                   └── transformers
+	    │                       └── JsonResponseTransformer.java
+	    └── test
+	        └── java
+	            └── com
+	                └── masashik
+	                    └── app
+	                        └── UserManagementAppTest.java
 
 ### TODO
 
 - [ ] Create develop and feature branch for gitflow
-- [ ] Develop test case for unit, integration, and end-to-end (regression)
-- [ ] Containerize the API App.
 - [ ] Enable logging for service health observability
 - [ ] JWT based API endpoints protection
 - [ ] Rate limiting for service availability
 - [ ] Resilience handling by circuit breaker
+- [x] Develop test case for unit, integration, and end-to-end (regression)
+- [x] Containerize the API App.
