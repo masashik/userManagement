@@ -141,12 +141,11 @@ public class UserController {
 
       if (userService.permissionExists(user, newPermission)) {
         userService.getUserPermission().remove(user.getId());
+        response.type("application/json");
+        response.status( 200 );
       }
-
     }
-
     user.setPermission(null);
-
     return user;
   }
 
