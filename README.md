@@ -1,5 +1,7 @@
 # REST API endpoints that manages users and associated permissions.
 
+[![Java CI with Maven](https://github.com/masashik/userManagement/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/masashik/userManagement/actions/workflows/maven.yml)
+
 ## Requirements
  
 1. A user should have at least the following attributes:
