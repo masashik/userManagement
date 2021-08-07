@@ -204,8 +204,7 @@
 
 ### Data modelling
 
- 	User
- 	Permission
+![Data Modeling](Data_modeling_of_user_and_permission.png)
 
 ### Project structure
 
@@ -246,6 +245,10 @@
 
 ### TODO
 
+- [ ] Adding a database layer to enable connection to MySQL database for data persistency
+- [ ] Unit Test for implementation layer
+- [ ] Integration Test for service layer
+- [ ] End-to-end Testing for edge layer (API endpoints)
 - [ ] Create develop and feature branch for gitflow
 - [ ] Enable logging for service health observability
 - [ ] JWT based API endpoints protection
