@@ -45,10 +45,13 @@
 
  - Option 1. Launch the API server (Jetty) from source code
 
-		$ mvn clean compile test exec:java
+		$ mvn clean compile exec:java
 
  - Option 2. Launch the API server (Jetty) from JAR file
 
+	<mark>(You need to skip maven test phase by supplying -DskipTests because maven test requires another JVM instance for this project, Or you can have the JVM instance with Option 1. above)</mark>
+
+		$ mvn clean compile package -DskipTests 
 		$ java -jar userManagement-1.0-SNAPSHOT-jar-with-dependencies.jar
 
  - Option 3. Launch the API server (Jetty) from Docker
@@ -245,6 +248,7 @@
 
 ### TODO
 
+- [ ] Add API Spec documentation for setting up a developer friendly environment(Ex. Swagger Slate)
 - [ ] Adding a database layer to enable connection to MySQL database for data persistency
 - [ ] Unit Test for implementation layer
 - [ ] Integration Test for service layer
