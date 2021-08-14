@@ -1,40 +1,3 @@
-# REST API endpoints that manages users and associated permissions.
-
-[![Java CI with Maven](https://github.com/masashik/userManagement/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/masashik/userManagement/actions/workflows/maven.yml)
-
-## Requirements
- 
-1. A user should have at least the following attributes:
-   - family name
-   - given name
-   - birthdate
-   - email
-   - password
-
-2. A user's permission should have at least the following attributes:
-   - type
-   - granted date
-  
-3. The API should provide the endpoints to satisfy at least the following functional requirements:
-   - list all users
-   - add user
-   - remove user
-   - get single user
-   - grant permission for a user
-   - revoke permission for a user
-   - <mark>search users by family name <– this will be a stretch goal</mark>
-
-*Please keep in mind that the purpose is not solely to provide a working solution. We are looking for you to demonstrate the principles and practices you  feel are important in software engineering: dependency management, testing, project structure, data modelling, etc.
-
-## Environment
-
-- Run the API App as JVM
-	- Java 11
-	- Maven ver 3.8.1
-
-- Run the API App as container process by Docker
-	- Docker runtime
-
 
 ## Get Started
 
@@ -59,21 +22,211 @@
 		$ docker build -t usermanagement:v1 .
 		$ docker run -d -p 8000:8000 usermanagement:v1
 
-#### The API server is now running at port 8000.
+ - The API server is now running at port 8000 and try hitting the endpoints and some users.
 
-	Try hitting the endpoints and some users.
-	curl -H "Content-Type: application/json" http://localhost:8000/users
+## Available API endpoints
 
+###### HTTP GET /users - List All Users
+Request:
+	
+	curl -H "Content-Type: application/json" http://localhost:8000/users | jq
+	
+Response:
+	
+	[
+		{
+			"id": "4cb4ca08-8ff6-4282-a4ab-a4ac40ab87b9",
+			"firstName": "First",
+			"lastName": "Last",
+			"birthDate": "2020-01-01",
+			"email": "first@last.com",
+			"password": "password"
+		},
+		{
+			"id": "d2eea50a-8340-489b-ae1a-bd4d555a69c8",
+			"firstName": "Second",
+			"lastName": "Second Last",
+			"birthDate": "1987-11-13",
+			"email": "second@last.ca",
+			"password": "password"
+		},
+		{
+			"id": "218b1ade-8e0b-43f7-a574-e57abf60335d",
+			"firstName": "Third",
+			"lastName": "Third Last",
+			"birthDate": "2016-10-18",
+			"email": "third@last.com",
+			"password": "password"
+		},
+		{
+			"id": "3e7f0cb1-4586-403d-9ee7-3624fc4acc0f",
+			"firstName": "Masashi",
+			"lastName": "Kobayashi",
+			"birthDate": "1989-10-23",
+			"email": "masashi@kobayashi.com",
+			"password": "password"
+		}
+	]
 
-### Available API endpoints
+###### HTTP POST   /users - Add new user
+Request:
+	
+	curl -i -X POST -H "Content-Type: application/json" http://localhost:8000/users \
+	-d '{
+	 "firstName":"First",
+	 "lastName":"Last",
+	 "birthDate":"1999-11-02",
+	 "email":"first@last.com",
+	 "password":"secret"
+	}';
+	
+Response:
+	
+	HTTP/1.1 201 Created
+	Date: Fri, 13 Aug 2021 23:46:25 GMT
+	Content-Type: application/json
+	Transfer-Encoding: chunked
+	Server: Jetty(9.4.31.v20200723)
+	
+	{
+	  "id":"d7c54a1d-f269-42f3-80c4-0e7bbec4b764",
+	  "firstName":"First",
+	  "lastName":"Last",
+	  "birthDate":"1999-11-02",
+	  "email":"first@last.com",
+	  "password":"secret"
+	}
 
-    	HTTP GET    /users - List all users
-    	HTTP POST   /users - Add new user
-    	HTTP DELETE /users - Remove single user
-    	HTTP GET    /user/:id - Get single user
-    	HTTP POST   /user/:id/grant/:permission - Grant permission for a user
-    	HTTP POST   /user/:id/revoke/:permission - Revoke permission from a user
-    	HTTP GET    /users/:familyName - List all users containing the family name
+###### HTTP DELETE /users - Remove single user
+Request:
+	
+	curl -i -X DELETE -H "Content-Type: application/json" http://localhost:8000/users \
+	-d '{
+	 "id":"4cb4ca08-8ff6-4282-a4ab-a4ac40ab87b9",
+	 "firstName":"First",
+	 "lastName":"Last",
+	 "birthDate":"1999-11-02",
+	 "email":"first@last.com",
+	 "password":"password"
+	}'
+	
+Response:
+
+	HTTP/1.1 200 OK
+	Date: Fri, 13 Aug 2021 23:53:49 GMT
+	Content-Type: application/json
+	Transfer-Encoding: chunked
+	Server: Jetty(9.4.31.v20200723)
+	{
+	  "id":"4cb4ca08-8ff6-4282-a4ab-a4ac40ab87b9",
+	  "firstName":"First",
+	  "lastName":"Last",
+	  "birthDate": "2020-01-01",
+	  "email": "first@last.com",
+	  "password":"password"
+	}
+
+###### HTTP GET    /user/:id - Get single user
+Request:
+
+	curl -H "Content-Type: application/json" \
+	http://localhost:8000/user/4cb4ca08-8ff6-4282-a4ab-a4ac40ab87b9
+
+Response:
+
+	{
+	  "id":"4cb4ca08-8ff6-4282-a4ab-a4ac40ab87b9",
+	  "firstName":"First",
+	  "lastName":"Last",
+	  "birthDate":"2020-01-01",
+	  "email":"zeno@makeanart.com",
+	  "password":"password"
+	}
+
+###### HTTP POST   /user/:id/grant/:permission - Grant permission for a user
+Request:
+
+	curl -i -X POST -H "Content-Type: application/json" \
+	http://localhost:8000/user/218b1ade-8e0b-43f7-a574-e57abf60335d/grant/NORMAL
+
+Response:
+
+	HTTP/1.1 200 OK
+	Date: Sat, 14 Aug 2021 00:15:51 GMT
+	Content-Type: application/json
+	Transfer-Encoding: chunked
+	Server: Jetty(9.4.31.v20200723)
+	
+	{
+	  "id": "218b1ade-8e0b-43f7-a574-e57abf60335d",
+	  "firstName": "Third",
+	  "lastName": "Third Last",
+	  "birthDate": "2016-10-18",
+	  "email": "third@last.com",
+	  "password": "password"
+	  "permission":
+	  {
+	    "permittedLevel":"NORMAL",
+	    "grantedDate":"Fri Aug 13 20:15:51 EDT 2021"
+	  }
+	}
+
+###### HTTP POST /user/:id/revoke/:permission - Revoke permission from a user
+Request:
+
+	curl -i -X POST -H "Content-Type: application/json" \
+	http://localhost:8000/user/218b1ade-8e0b-43f7-a574-e57abf60335d/revoke/ADMIN
+
+Response:
+
+	HTTP/1.1 200 OK
+	Date: Sat, 14 Aug 2021 00:24:42 GMT
+	Content-Type: text/html;charset=utf-8
+	Transfer-Encoding: chunked
+	Server: Jetty(9.4.31.v20200723)
+	
+	{
+	  "id":"218b1ade-8e0b-43f7-a574-e57abf60335d",
+	  "firstName": "Third",
+	  "lastName": "Third Last",
+	  "birthDate": "2016-10-18",
+	  "email": "third@last.com",
+	  "password": "password"
+	}
+
+###### HTTP GET /users/:familyName - List all users containing the family name
+Request:
+
+	curl -H "Content-Type: application/json" http://localhost:8000/users/Last
+
+Response:
+
+	[
+		{
+			"id": "4cb4ca08-8ff6-4282-a4ab-a4ac40ab87b9",
+			"firstName": "First",
+			"lastName": "Last",
+			"birthDate": "2020-01-01",
+			"email": "first@last.com",
+			"password": "password"
+		},
+		{
+			"id": "d2eea50a-8340-489b-ae1a-bd4d555a69c8",
+			"firstName": "Second",
+			"lastName": "Second Last",
+			"birthDate": "1987-11-13",
+			"email": "second@last.ca",
+			"password": "password"
+		},
+		{
+			"id": "218b1ade-8e0b-43f7-a574-e57abf60335d",
+			"firstName": "Third",
+			"lastName": "Third Last",
+			"birthDate": "2016-10-18",
+			"email": "third@last.com",
+			"password": "password"
+		}
+	]
 
 ### Dependency management 
 
@@ -253,6 +406,7 @@
 - [ ] Unit Test for implementation layer
 - [ ] Integration Test for service layer
 - [ ] End-to-end Testing for edge layer (API endpoints)
+- [ ] Mock testing for end-to-end API testing
 - [ ] Create develop and feature branch for gitflow
 - [ ] Enable logging for service health observability
 - [ ] JWT based API endpoints protection
