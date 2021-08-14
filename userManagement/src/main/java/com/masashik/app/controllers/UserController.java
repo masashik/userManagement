@@ -10,6 +10,7 @@ import com.masashik.app.models.Permission;
 import spark.Request;
 import spark.Response;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Date;
@@ -38,7 +39,7 @@ public class UserController {
       return "Requested body is malformatted.";
     }
 
-    user.setId(java.util.UUID.randomUUID().toString());
+    //user.setId(java.util.UUID.randomUUID().toString());
 
     userService.addUser(user);
 
@@ -71,7 +72,7 @@ public class UserController {
   }
 
   public Object getUser(Request request, Response response) {
-    User user = userService.getUser(request.params(":id"));
+    User user = userService.getUser(Long.valueOf(request.params(":id")));
     if (user == null) {
       response.status( 404 );// 404 Not Found.
       return null;
@@ -86,7 +87,7 @@ public class UserController {
     /**
      * /user/:id/grant/:permission
      */
-    User user = userService.getUser(request.params(":id"));
+    User user = userService.getUser(Long.valueOf(request.params(":id")));
     Permission.LEVEL level = Permission.LEVEL.valueOf(request.params(":permission"));
     Permission newPermission = new Permission();
 
@@ -109,7 +110,8 @@ public class UserController {
         //Permission is already assigned to the user.
         response.type("application/json");
         response.status( 200 );
-        user.setPermission(newPermission);
+        ArrayList<Permission> newPermissions = new ArrayList<Permission>();
+        user.setPermission(newPermissions);
         return user;
       }
     } else {
@@ -117,14 +119,14 @@ public class UserController {
       response.status( 404 );// Not Found
       return null;
     }
-
-    user.setPermission(newPermission);
+    ArrayList<Permission> newPermissions = new ArrayList<Permission>();
+    user.setPermission(newPermissions);
     return user;
   }
 
   public Object revokePermission(Request request, Response response) {
 
-    User user = userService.getUser(request.params(":id"));
+    User user = userService.getUser(Long.valueOf(request.params(":id")));
     Permission.LEVEL level = Permission.LEVEL.valueOf(request.params(":permission"));
 
     Permission newPermission = new Permission();
@@ -168,7 +170,7 @@ public class UserController {
     testUser.setBirthDate("1998-11-05");
     testUser.setEmail("masashi@masashi.ca");
     testUser.setPassword("password");
-    testUser.setId("1");
+    testUser.setId(1L);
 
     return testUser;
   }
@@ -182,7 +184,7 @@ public class UserController {
     return testPermission;
   }
 
-  public HashMap<String, Permission> getPermissions(Request request, Response response) {
+  public HashMap<Long, Permission> getPermissions(Request request, Response response) {
     response.type("application/json");
     return userService.getUserPermission();
   }

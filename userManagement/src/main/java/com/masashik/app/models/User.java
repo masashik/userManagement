@@ -1,22 +1,31 @@
 package com.masashik.app.models;
 
-import java.util.Date;
+import java.util.Objects;
 
+import javax.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name="user")
 public class User {
 
-  private String id;
+  private @Id @GeneratedValue Long id;
+  //private String id;
   private String firstName;
   private String lastName;
   private String birthDate;
   private String email;
   private String password;
-  private Permission permission;
 
-  public String getId() {
+  @OneToMany(mappedBy = "user")
+  private List<Permission> permission;
+
+  public Long getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -60,11 +69,11 @@ public class User {
     this.password = password;
   }
 
-  public Permission getPermission() {
+  public List<Permission> getPermission() {
     return permission;
   }
 
-  public void setPermission(Permission permission) {
+  public void setPermission(List<Permission> permission) {
     this.permission = permission;
   }
 }

@@ -1,6 +1,21 @@
 package com.masashik.app.models;
 
+import javax.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name="permission")
 public class Permission {
+
+  @ManyToOne
+  private User user;
+
+  private @Id @GeneratedValue Long id;
 
   public enum LEVEL {ADMIN, ENHANCED, NORMAL};
 
