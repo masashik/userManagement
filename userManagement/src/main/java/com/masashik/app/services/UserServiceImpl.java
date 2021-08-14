@@ -11,12 +11,12 @@ import com.masashik.app.models.User;
 
 public class UserServiceImpl implements UserService {
 
-	private final HashMap<String, User> userStore;
-	private final HashMap<String, Permission> userPermission;
+	private final HashMap<Long, User> userStore;
+	private final HashMap<Long, Permission> userPermission;
 
 	public UserServiceImpl() {
-		userStore = new HashMap<String, User>();
-		userPermission = new HashMap<String, Permission>();
+		userStore = new HashMap<Long, User>();
+		userPermission = new HashMap<Long, Permission>();
 	}
 
 	public Collection<User> getUsers() {
@@ -32,10 +32,10 @@ public class UserServiceImpl implements UserService {
 		userStore.put(user.getId(), user);
 	}
 
-	public void deleteUser(String id) {
+	public void deleteUser(Long id) {
 		userStore.remove(id);
 	}
-	public User getUser(String id) {
+	public User getUser(Long id) {
 		return userStore.get(id);
 	}
 
@@ -52,11 +52,11 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	public HashMap<String, User> getUserStore() {
+	public HashMap<Long, User> getUserStore() {
 		return userStore;
 	}
 
-	public HashMap<String, Permission> getUserPermission() {
+	public HashMap<Long, Permission> getUserPermission() {
 		return userPermission;
 	}
 

@@ -450,3 +450,68 @@ Response:
 - [ ] Resilience handling by circuit breaker
 - [x] Develop test case for unit, integration, and end-to-end (regression)
 - [x] Containerize the API App.
+
+# Extra - SCIM compliant
+
+Request:
+
+	/scim/users?filter=userName eq "Kobayashi"&startIndex=1&count=100
+	GET /scim/users?filter=userName%20eq%20%22Kobayashi%22&startIndex=1&count=100
+
+	HTTP/1.1
+	User-Agent: Okta SCIM Client 1.0.0
+	Authorization: <Authorization credentials>
+
+Response (Success):
+
+	HTTP/1.1 200 OK
+	Date: Tue, 10 Sep 2019 01:49:39 GMT
+	Content-Type: text/json;charset=UTF-8
+
+	{
+		"schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+		"totalResults": 0,
+		"startIndex": 1,
+		"itemsPerPage": 0,
+		"Resources": []
+	}
+
+Response (Fail/Error):
+
+	HTTP/1.1 404 Not Found
+	Date: Tue, 10 Sep 2019 01:58:03 GMT
+	Content-Type: text/html; charset=UTF-8
+	
+	{
+		"schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+		"detail": "User not found",
+		"status": 404
+	}
+
+Request:
+
+	POST /scim/v2/Users HTTP/1.1
+	User-Agent: Okta SCIM Client 1.0.0
+	Authorization: <Authorization credentials>
+
+	{
+		"schemas": ["urn:ietf:params:scim:schemas:core:2.0:User"],
+		"userName": "test.user@okta.local",
+		"name": {
+			"givenName": "Test",
+			"familyName": "User"
+		},
+		"emails": [{
+			"primary": true,
+			"value": "test.user@okta.local",
+			"type": "work"
+		}],
+		"displayName": "Test User",
+		"locale": "en-US",
+		"externalId": "00ujl29u0le5T6Aj10h7",
+		"groups": [],
+		"password": "1mz050nq",
+		"active": true
+	}
+
+Reference: https://developer.okta.com/docs/reference/scim/scim-20
