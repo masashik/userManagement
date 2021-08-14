@@ -1,3 +1,39 @@
+# REST API endpoints that manages users and associated permissions.
+
+[![Java CI with Maven](https://github.com/masashik/userManagement/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/masashik/userManagement/actions/workflows/maven.yml)
+
+## Requirements
+
+1. A user should have at least the following attributes:
+- family name
+- given name
+- birthdate
+- email
+- password
+
+2. A user's permission should have at least the following attributes:
+- type
+- granted date
+
+3. The API should provide the endpoints to satisfy at least the following functional requirements:
+- list all users
+- add user
+- remove user
+- get single user
+- grant permission for a user
+- revoke permission for a user
+- <mark>search users by family name <– this will be a stretch goal</mark>
+
+*Please keep in mind that the purpose is not solely to provide a working solution. We are looking for you to demonstrate the principles and practices you  feel are important in software engineering: dependency management, testing, project structure, data modelling, etc.
+
+## Environment
+
+- Run the API App as JVM
+	- Java 11
+	- Maven ver 3.8.1
+
+- Run the API App as container process by Docker
+	- Docker runtime
 
 ## Get Started
 
